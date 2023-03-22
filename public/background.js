@@ -1,6 +1,6 @@
 chrome.contextMenus.create({
-  id: 'yd-lookup',
-  title: 'yd-lookup',
+  id: 'y-dictionary',
+  title: 'Y Dictionary',
   contexts: ['all'],
 });
 

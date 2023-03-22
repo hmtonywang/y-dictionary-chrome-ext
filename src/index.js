@@ -4,8 +4,8 @@ import { createGlobalStyle } from 'styled-components';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 
-const ROOT_ID = 'yd-lookup';
-const BUTTON_ID = 'yd-lookup-btn';
+const ROOT_ID = 'y-dictionary';
+const BUTTON_ID = `${ROOT_ID}-btn`;
 const ICON_URL = window.chrome.runtime.getURL('logo48.png');
 let buttonClicked = false;
 
