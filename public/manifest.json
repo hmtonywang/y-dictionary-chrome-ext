@@ -23,9 +23,7 @@
   },
   "permissions": [
     "activeTab",
-    "notifications",
-    "contextMenus",
-    "tabs"
+    "contextMenus"
   ],
   "web_accessible_resources": [
     {
