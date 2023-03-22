@@ -151,6 +151,13 @@ window.chrome.runtime.onMessage.addListener((msg, sender) => {
       }
     }
     removeButton();
+  } else if (msg === 'toggle') {
+    const rootElement = document.getElementById(ROOT_ID);
+    if (rootElement) {
+      removeRoot();
+    } else {
+      createRoot();
+    }
   }
 });
 

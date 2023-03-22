@@ -5,7 +5,7 @@ chrome.contextMenus.create({
 });
 
 chrome.action.onClicked.addListener((tab) => {
-  chrome.tabs.sendMessage(tab.id, 'open');
+  chrome.tabs.sendMessage(tab.id, 'toggle');
 });
 
 chrome.contextMenus.onClicked.addListener((item, tab) => {
