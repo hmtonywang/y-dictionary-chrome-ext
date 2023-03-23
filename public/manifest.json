@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Y Dictionary",
-  "description" : "A Chrome extension to look vocabularies up with y-dictionary-server",
+  "description" : "A chrome extension to look up words with y-dictionary-server",
   "version": "1.0.0",
   "action": {
     "default_icon" : "logo128.png",
