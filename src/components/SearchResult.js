@@ -162,34 +162,36 @@ const LinkItem = (props) => {
 };
 
 const SearchResult = (props) => {
-  const { value, onClickOtherText } = props;
+  const { error, value, onClickOtherText } = props;
+  if (error) {
+    return (
+      <Style.Container>
+        {error.message}
+      </Style.Container>
+    );
+  }
   if (!value) {
     return '';
   }
-  if (value instanceof Error) {
-    return (
-      <Style.Result>
-        {value.message}
-      </Style.Result>
-    );
-  }
   if (value === 'Not Found') {
     return (
-      <Style.Result>
+      <Style.Container>
         <NotFound />
-      </Style.Result>
+      </Style.Container>
     );
   }
   return (
-    <Style.Result>
-      {value.main && value.main.title && <MainCard value={value.main} onClickOtherText={onClickOtherText} />}
-      {value.secondary && value.secondary.length > 0 &&
-        value.secondary.map((item) => <OtherCard value={item} onClickOtherText={onClickOtherText} />)
-      }
-      {value.more && value.more.length > 0 &&
-        value.more.map((item) => <OtherCard value={item} onClickOtherText={onClickOtherText} />)
-      }
-    </Style.Result>
+    <Style.Container>
+      <Style.Result>
+        {value.main && value.main.title && <MainCard value={value.main} onClickOtherText={onClickOtherText} />}
+        {value.secondary && value.secondary.length > 0 &&
+          value.secondary.map((item) => <OtherCard value={item} onClickOtherText={onClickOtherText} />)
+        }
+        {value.more && value.more.length > 0 &&
+          value.more.map((item) => <OtherCard value={item} onClickOtherText={onClickOtherText} />)
+        }
+      </Style.Result>
+    </Style.Container>
   );
 };
 
@@ -205,8 +207,11 @@ const baseUl = styled.ul`
 `;
 
 const Style = {
-  Result: styled.div`
+  Container: styled.div`
     margin: 16px 12px 0 12px;
+    max-height: 440px;
+  `,
+  Result: styled.div`
     max-height: 440px;
     overflow-y: scroll;
   `,

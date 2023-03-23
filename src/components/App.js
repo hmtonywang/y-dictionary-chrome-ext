@@ -95,6 +95,7 @@ const App = (props) => {
       <Body
         loading={state.loading}
         result={state.result}
+        error={state.error}
         onClickOtherText={onClickOtherText}
       />
       <Footer />

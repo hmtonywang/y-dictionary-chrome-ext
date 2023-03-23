@@ -10,6 +10,7 @@ const Body = (props) => {
         ? <Spinner />
         : <SearchResult
             value={props.result}
+            error={props.error}
             onClickOtherText={props.onClickOtherText}
           />
       }

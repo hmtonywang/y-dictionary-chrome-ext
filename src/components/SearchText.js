@@ -30,7 +30,7 @@ const SearchText = (props) => {
         onChange={(event) => props.onChange(event.target.value)}
         onKeyDown={(event) => {
           if (props.value && event.key === 'Enter') {
-            props.onSubmit();
+            props.onSubmit(props.value);
           }
         }}
       />
@@ -54,7 +54,7 @@ const Style = {
   Search: styled.div`
     display: flex;
     min-height: 40px;
-    background: #f7f7f8;
+    background: #fff;
     border-radius: 40px;
     margin: 0 12px;
     border-style: hidden;
@@ -69,7 +69,7 @@ const Style = {
     height: 20px;
     color: #40485a;
     caret-color: #40485a;
-    background: #f7f7f8;
+    background: #fff;
     border-style: hidden;
     outline: unset;
     font-family: Roboto, Helvetica, arial, sans-serif;
