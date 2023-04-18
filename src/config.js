@@ -1,7 +1,9 @@
-export const LOOKUP_API = 'http://localhost/api/lookup?w=';
+export const API_URL = 'http://localhost';
+export const API_KEY = 'api-key';
 
 const obj = {
-  LOOKUP_API,
+  API_URL,
+  API_KEY,
 };
 
 export default obj;
