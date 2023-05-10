@@ -1,7 +1,7 @@
 {
-  "name": "y-dictionary-chrome-ext",
+  "name": "dictionary-chrome-ext",
   "version": "0.1.0",
-  "description": "A chrome extension to look up words with y-dictionary-server",
+  "description": "A chrome extension to look up words with dictionary-api",
   "author": "hm.tony.wang@gmail.com",
   "license": "MIT",
   "engines": {
