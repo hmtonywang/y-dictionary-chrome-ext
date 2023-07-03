@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Y Dictionary",
-  "description" : "A chrome extension to look up word(s) with dictionary-api",
-  "version": "1.0.1",
+  "description" : "瀏覽網頁時可輕鬆查閱單字及片語。",
+  "version": "1.0.2",
   "minimum_chrome_version": "88",
   "action": {
     "default_icon" : "logo128.png",
