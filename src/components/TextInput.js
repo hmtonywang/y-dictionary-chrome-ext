@@ -1,12 +1,9 @@
-import { useEffect } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import CloseBtn from './CloseBtn';
 
-const SearchText = (props) => {
-  useEffect(() => {
-    document.getElementById('search-text').focus();
-  }, []);
+const TextInput = (props) => {
   return (
     <Style.Search>
       <Style.Icon
@@ -30,7 +27,7 @@ const SearchText = (props) => {
         onChange={(event) => props.onChange(event.target.value)}
         onKeyDown={(event) => {
           if (props.value && event.key === 'Enter') {
-            props.onSubmit(props.value);
+            props.onSubmit(event.target.value);
           }
         }}
       />
@@ -44,7 +41,7 @@ const SearchText = (props) => {
   );
 };
 
-SearchText.propTypes = {
+TextInput.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
@@ -79,4 +76,4 @@ const Style = {
   `,
 };
 
-export default SearchText;
+export default TextInput;

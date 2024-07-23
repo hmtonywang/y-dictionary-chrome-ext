@@ -16,7 +16,7 @@
   "content_scripts": [
     {
       "matches": ["https://*/*"],
-      "js": ["static/js/main.js"]
+      "js": ["content.js"]
     }
   ],
   "background": {
@@ -25,8 +25,12 @@
   "permissions": [
     "activeTab",
     "contextMenus",
+    "sidePanel",
     "https://*/*"
   ],
+  "side_panel": {
+    "default_path": "index.html"
+  },
   "web_accessible_resources": [
     {
       "resources": [

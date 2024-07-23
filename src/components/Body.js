@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import SearchResult from './SearchResult';
+import Result from './Result';
 import Spinner from './Spinner';
 
 const Body = (props) => {
   return (
     <Style.Body>
-      {props.loading
+      {props.isLoading
         ? <Spinner />
-        : <SearchResult
+        : <Result
             value={props.result}
             error={props.error}
             onClickOtherText={props.onClickOtherText}
@@ -25,9 +25,8 @@ Body.propTypes = {
 
 const Style = {
   Body: styled.div`
-    padding-top: 100px;
+    padding-top: 70px;
     padding-bottom: 45px;
-    overflow: hidden;
   `,
 };
 

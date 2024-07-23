@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import NotFound from './NotFound';
+import Error from './Error';
 
 const MainCard = (props) => {
   const { value } = props;
@@ -161,13 +162,13 @@ const LinkItem = (props) => {
   );
 };
 
-const SearchResult = (props) => {
+const Result = (props) => {
   const { error, value, onClickOtherText } = props;
   if (error) {
     return (
-      <Style.Container>
-        {error.message}
-      </Style.Container>
+      <Style.Result>
+        <Error error={error} />
+      </Style.Result>
     );
   }
   if (!value) {
@@ -175,14 +176,14 @@ const SearchResult = (props) => {
   }
   if (value === 'Not Found') {
     return (
-      <Style.Container>
+      <Style.Result>
         <NotFound />
-      </Style.Container>
+      </Style.Result>
     );
   }
   return (
-    <Style.Container>
-      <Style.Result>
+    <Style.Result>
+      <div>
         {value.main && value.main.title && <MainCard value={value.main} onClickOtherText={onClickOtherText} />}
         {value.secondary && value.secondary.length > 0 &&
           value.secondary.map((item) => <OtherCard value={item} onClickOtherText={onClickOtherText} />)
@@ -190,12 +191,12 @@ const SearchResult = (props) => {
         {value.more && value.more.length > 0 &&
           value.more.map((item) => <OtherCard value={item} onClickOtherText={onClickOtherText} />)
         }
-      </Style.Result>
-    </Style.Container>
+      </div>
+    </Style.Result>
   );
 };
 
-SearchResult.propTypes = {
+Result.propTypes = {
   onClickOtherText: PropTypes.func.isRequired,
 };
 
@@ -207,13 +208,8 @@ const baseUl = styled.ul`
 `;
 
 const Style = {
-  Container: styled.div`
-    margin: 16px 12px 0 12px;
-    max-height: 440px;
-  `,
   Result: styled.div`
-    max-height: 440px;
-    overflow-y: scroll;
+    margin: 16px 12px 0 12px;
   `,
   Card: styled.div`
     background-color: #fff;
@@ -328,4 +324,4 @@ const Style = {
   `
 };
 
-export default SearchResult;
+export default Result;

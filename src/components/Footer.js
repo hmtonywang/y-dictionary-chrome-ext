@@ -22,7 +22,7 @@ const Style = {
     display: flex;
     background-color: #fff;
     width: 100%;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     border-top: 1px solid #f7f7f8;
   `,
