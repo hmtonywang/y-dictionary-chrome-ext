@@ -19,7 +19,7 @@ const TextInput = (props) => {
         />
       </Style.Icon>
       <Style.Input
-        id='search-text'
+        id='text-input'
         type='text'
         autofocus
         placeholder='請輸入單字'
