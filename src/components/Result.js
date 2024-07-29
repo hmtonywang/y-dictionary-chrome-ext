@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import NotFound from './NotFound';
-import Error from './Error';
+import ErrorResult from './ErrorResult';
 
 const MainCard = (props) => {
   const { value } = props;
@@ -167,7 +167,7 @@ const Result = (props) => {
   if (error) {
     return (
       <Style.Result>
-        <Error error={error} />
+        <ErrorResult error={error} />
       </Style.Result>
     );
   }
