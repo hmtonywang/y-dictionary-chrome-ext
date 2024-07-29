@@ -22,8 +22,13 @@ export const get = async (path) => {
   const headers = getHmacSignatureHeaders(path, method);
   try {
     const res = await fetch(url, { headers });
-    const json = await res.json();
-    return json;
+    const jsonData = await res.json();
+    if (res.status !== 200) {
+      const error = new Error(jsonData.message || res.statusText);
+      error.status = jsonData.status || res.status;
+      throw error;
+    }
+    return jsonData;
   } catch (error) {
     throw error;
   }
