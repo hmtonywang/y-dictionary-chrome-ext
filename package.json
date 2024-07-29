@@ -44,7 +44,9 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.24.8",
     "@craco/craco": "^7.0.0",
+    "jest": "^29.7.0",
     "puppeteer": "^22.13.0"
   }
 }
