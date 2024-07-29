@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import NotFound from './NotFound';
 import ErrorResult from './ErrorResult';
+import Link from './Link';
 
 const MainCard = (props) => {
   const { value } = props;
@@ -70,12 +71,13 @@ const OtherCard = (props) => {
 };
 
 const TitleRow = (props) => {
-  const { value } = props;
+  const { value, onClickOtherText } = props;
+  const { label, text, href } = value;
   return (
     <Style.Row>
-      {value.label && <Style.Pos>{value.label}</Style.Pos>}
-      {value.href
-        ? <LinkItem {...props} />
+      {label && <Style.Pos>{label}</Style.Pos>}
+      {href
+        ? <Link text={text} href={href} onClickOtherText={onClickOtherText} />
         : <span>{value.text}</span>
       }
     </Style.Row>
@@ -88,7 +90,8 @@ const LinkRow = (props) => {
     <Style.Row margin={2}>
       <Style.BaseUl>
         {value.rows.map((row) => {
-          return <LinkItem value={row} onClickOtherText={onClickOtherText} />;
+          const { text, href } = row;
+          return <Link text={text} href={href} onClickOtherText={onClickOtherText} />;
         })}
       </Style.BaseUl>
     </Style.Row>
@@ -139,26 +142,6 @@ const PhoneticRow = (props) => {
         ))}
       </Style.InlineUl>
     </Style.Row>
-  );
-};
-
-const LinkItem = (props) => {
-  const { value, onClickOtherText } = props;
-  return (
-    <Style.Link>
-      <button
-        onClick={() => onClickOtherText(value.text)}
-      >
-        {value.text}
-      </button>
-      <a
-        target='_blank'
-        rel='noopener noreferrer'
-        href={value.href}
-      >
-        另開新分頁
-      </a>
-    </Style.Link>
   );
 };
 
@@ -297,31 +280,6 @@ const Style = {
     color: #757575;
     line-height: 20px;
   `,
-  Link: styled.div`
-    button {
-      display: inline-block;
-      background: none;
-      border: none;
-      padding: 0;
-      color: #069;
-      text-decoration: underline;
-      cursor: pointer;
-      margin-right: 15px;
-    }
-    a {
-      display: inline-block;
-      font-size: 8px;
-      vertical-align: middle;
-      height: 14px;
-      line-height: 14px;
-      border-radius: 5px;
-      background-color: #40485a;
-      text-align: center;
-      color: #fff;
-      padding: 0 2px;
-      text-decoration: none;
-    }
-  `
 };
 
 export default Result;
