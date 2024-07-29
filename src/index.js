@@ -5,7 +5,13 @@ import App from './components/App';
 import ErrorBoundary from './components/ErrorBoundary';
 import reportWebVitals from './reportWebVitals';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const rootElement = document.getElementById('y-dictionary-root');
 const root = ReactDOM.createRoot(rootElement);
