@@ -1,6 +1,6 @@
 {
   "name": "dictionary-chrome-ext",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "description": "A chrome extension to look up words with dictionary-api",
   "author": "hm.tony.wang@gmail.com",
   "license": "MIT",
