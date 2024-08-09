@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Link = (props) => {
-  const { text, href, onClickOtherText } = props;
+  const { text, href, onSubmit } = props;
   return (
     <Style.Link>
       <button
-        onClick={() => onClickOtherText(text)}
+        onClick={() => onSubmit(text)}
       >
         {text}
       </button>
@@ -24,7 +24,7 @@ const Link = (props) => {
 Link.propTypes = {
   text: PropTypes.string.isRequired,
   href: PropTypes.string.isRequired,
-  onClickOtherText: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 const Style = {

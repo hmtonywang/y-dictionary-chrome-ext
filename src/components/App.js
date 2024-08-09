@@ -46,7 +46,7 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <Body
           words={words}
-          onClickOtherText={lookWordsUp}
+          onSubmit={lookWordsUp}
         />
       </QueryClientProvider>
       <Footer />

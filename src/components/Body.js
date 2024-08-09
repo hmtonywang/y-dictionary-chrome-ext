@@ -26,7 +26,7 @@ const Body = (props) => {
         : <Result
             value={data}
             error={error}
-            onClickOtherText={props.onClickOtherText}
+            onSubmit={props.onSubmit}
           />
       }
     </Style.Body>
@@ -35,7 +35,7 @@ const Body = (props) => {
 
 Body.propTypes = {
   words: PropTypes.string,
-  onClickOtherText: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 const Style = {

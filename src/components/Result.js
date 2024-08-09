@@ -6,7 +6,7 @@ import MainBlock from './MainBlock';
 import OtherBlock from './OtherBlock';
 
 const Result = (props) => {
-  const { error, value, onClickOtherText } = props;
+  const { error, value, onSubmit } = props;
   if (error) {
     return (
       <Style.Result>
@@ -27,12 +27,12 @@ const Result = (props) => {
   return (
     <Style.Result>
       <div>
-        {value.main && value.main.title && <MainBlock value={value.main} notes={value.notes} onClickOtherText={onClickOtherText} />}
+        {value.main && value.main.title && <MainBlock value={value.main} notes={value.notes} onSubmit={onSubmit} />}
         {value.secondary && value.secondary.length > 0 &&
-          value.secondary.map((item) => <OtherBlock value={item} onClickOtherText={onClickOtherText} />)
+          value.secondary.map((item) => <OtherBlock value={item} onSubmit={onSubmit} />)
         }
         {value.more && value.more.length > 0 &&
-          value.more.map((item) => <OtherBlock value={item} onClickOtherText={onClickOtherText} />)
+          value.more.map((item) => <OtherBlock value={item} onSubmit={onSubmit} />)
         }
       </div>
     </Style.Result>
@@ -40,7 +40,7 @@ const Result = (props) => {
 };
 
 Result.propTypes = {
-  onClickOtherText: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 const Style = {

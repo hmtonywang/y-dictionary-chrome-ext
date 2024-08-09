@@ -7,17 +7,17 @@ import InlineUl from './InlineUl';
 import Pos from './Pos';
 
 const OtherBlock = (props) => {
-  const { value, onClickOtherText } = props;
+  const { value, onSubmit } = props;
   return (
     <Block title={value.name}>
       {value.rows && value.rows.length > 0 &&
         value.rows.map((row) => {
           if (row.type === 'title') {
-            return <TitleRow value={row} onClickOtherText={onClickOtherText} />;
+            return <TitleRow value={row} onSubmit={onSubmit} />;
           } else if (row.type === 'link' && row.rows && row.rows.length > 0) {
-            return <LinkRow value={row} onClickOtherText={onClickOtherText} />;
+            return <LinkRow value={row} onSubmit={onSubmit} />;
           } else if (row.type === 'content' && row.rows && row.rows.length > 0) {
-            return <ContentRow value={row} onClickOtherText={onClickOtherText} />;
+            return <ContentRow value={row} onSubmit={onSubmit} />;
           } else if (row.type === 'phonetic' && row.rows && row.rows.length > 0) {
             return <PhoneticRow value={row} />;
           }
@@ -29,13 +29,13 @@ const OtherBlock = (props) => {
 };
 
 const TitleRow = (props) => {
-  const { value, onClickOtherText } = props;
+  const { value, onSubmit } = props;
   const { label, text, href } = value;
   return (
     <Style.Row>
       {label && <Pos value={label} />}
       {href
-        ? <Link text={text} href={href} onClickOtherText={onClickOtherText} />
+        ? <Link text={text} href={href} onSubmit={onSubmit} />
         : <span>{value.text}</span>
       }
     </Style.Row>
@@ -43,13 +43,13 @@ const TitleRow = (props) => {
 };
 
 const LinkRow = (props) => {
-  const { value, onClickOtherText } = props;
+  const { value, onSubmit } = props;
   return (
     <Style.Row margin={2}>
       <BaseUl
         items={value.rows.map((row) => {
           const { text, href } = row;
-          return <Link text={text} href={href} onClickOtherText={onClickOtherText} />;
+          return <Link text={text} href={href} onSubmit={onSubmit} />;
         })}
       />
     </Style.Row>
@@ -103,7 +103,7 @@ OtherBlock.propTypes = {
     name: PropTypes.string.isRequired,
     rows: PropTypes.array,
   }).isRequired,
-  onClickOtherText: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 const Style = {
