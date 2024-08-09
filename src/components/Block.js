@@ -2,14 +2,20 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Block = (props) => {
+  const { title, notes } = props;
   return (
     <Style.Block>
       <Style.BlockContent>
+        {title && <Style.BlockTitle>{title}</Style.BlockTitle>}
         {props.children}
       </Style.BlockContent>
-      {props.notes}
+      {notes}
     </Style.Block>
   );
+};
+
+Block.propTypes = {
+  title: PropTypes.string,
 };
 
 const Style = {
@@ -27,6 +33,14 @@ const Style = {
   `,
   BlockContent: styled.div`
     padding: 10px 6px;
+  `,
+  BlockTitle: styled.div`
+    margin-top: 15px;
+    margin-bottom: 10px;
+    color: #101518;
+    line-height: 24px;
+    font-size: 24px;
+    font-weight: 500;
   `,
 };
 
