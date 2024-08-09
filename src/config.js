@@ -1,9 +1,9 @@
 export const API_URL = 'http://localhost';
 export const API_KEY = 'api-key';
 
-const obj = {
+const config = {
   API_URL,
   API_KEY,
 };
 
-export default obj;
+export default config;
