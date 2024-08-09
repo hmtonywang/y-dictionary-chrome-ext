@@ -1,60 +1,48 @@
-function createContextMenu() {
-  /* eslint-disable-next-line no-undef */
-  chrome.contextMenus.create({
-    id: 'y-dictionary',
-    title: 'Y Dictionary',
-    contexts: ['all'],
+import { MessageReceiver, OpenPageMessage } from './modules/chrome_runtime_message';
+
+function run(chrome) {
+  const manifest = chrome.runtime.getManifest();
+  const APP_ID = manifest.id;
+  const APP_TITLE = manifest.name;
+
+  function createContextMenu() {
+    chrome.contextMenus.create({
+      id: APP_ID,
+      title: APP_TITLE,
+      contexts: ['all'],
+    });
+  }
+
+  chrome.runtime.onInstalled.addListener((details) => {
+    createContextMenu();
   });
+
+  chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true })
+    .catch((error) => console.error(error));
+
+  function onContextMenusClicked (info, tab) {
+    if (info.menuItemId === APP_ID) {
+      const { windowId } = tab;
+      chrome.sidePanel.open({ windowId });
+    }
+  }
+
+  chrome.contextMenus.onClicked.addListener(onContextMenusClicked);
+
+  function openPage(message, sender) {
+    const { tab } = sender;
+    if (!tab) {
+      return;
+    }
+    const { windowId } = tab;
+    chrome.sidePanel.open({ windowId });
+  }
+
+  const receiver = new MessageReceiver(chrome);
+  receiver
+    .listen(OpenPageMessage, openPage)
+    .start();
 }
 
 /* eslint-disable-next-line no-undef */
-chrome.runtime.onInstalled.addListener((details) => {
-  createContextMenu();
-});
-
-/* eslint-disable-next-line no-undef */
-chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true })
-  .catch((error) => console.error(error));
-
-  /* eslint-disable-next-line no-undef */
-chrome.contextMenus.onClicked.addListener((info, tab) => {
-  if (info.menuItemId === 'y-dictionary') {
-    const { windowId } = tab;
-    /* eslint-disable-next-line no-undef */
-    chrome.sidePanel.open({ windowId });
-  }
-});
-
-/* eslint-disable-next-line no-undef */
-chrome.runtime.onMessage.addListener((msg, sender) => {
-  const { from, action, words } = msg;
-  if (from === 'y-dictionary-content-script' && action === 'look-words-up') {
-    if (isSidePanelOpened) {
-      /* eslint-disable-next-line no-undef */
-      chrome.runtime.sendMessage({
-        from: 'y-dictionary-service-worker',
-        action: 'look-words-up',
-        words,
-      });
-      return;
-    }
-    const { tab } = sender;
-    const { windowId } = tab;
-    /* eslint-disable-next-line no-undef */
-    chrome.sidePanel.setOptions({ path: `index.html?words=${words}` });
-    /* eslint-disable-next-line no-undef */
-    chrome.sidePanel.open({ windowId });
-  }
-});
-
-let isSidePanelOpened = false;
-
-/* eslint-disable-next-line no-undef */
-chrome.runtime.onConnect.addListener((port) => {
-  if (port.name === 'y-dictionary-side-panel') {
-    isSidePanelOpened = true;
-    port.onDisconnect.addListener(() => {
-      isSidePanelOpened = false;
-    });
-  }
-});
+run(chrome);

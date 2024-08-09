@@ -1,63 +1,54 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
-import { lookWordsUp } from '../api/words';
+import { QueryClientProvider, QueryClient } from 'react-query';
 import Header from './Header';
 import Body from './Body';
 import Footer from './Footer';
+import {
+  MessageReceiver,
+  PageReadyMessage,
+  LookWordsUpMessage
+} from '../modules/chrome_runtime_message';
 
-const getSearchParams = () => {
-  const params = new URLSearchParams(window.location.search);
-  return params;
-};
+const receiver = new MessageReceiver(window.chrome);
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => {
-  const params = getSearchParams();
-  const [words, setWords] = useState(params.get('words') || '');
-  const [submitWords, setSubmitWords] = useState('');
-  const communicateWithServiceWorker = () => {
-    window.chrome.runtime.onMessage.addListener((msg) => {
-      const { from, action, words} = msg;
-      if (from === 'y-dictionary-service-worker' && action === 'look-words-up') {
-        setWords(words);
-        setSubmitWords(words);
-      }
-    })
-    window.chrome.runtime.connect({ name: 'y-dictionary-side-panel' });
-  };
+  const [text, setText] = useState('');
+  const [words, setWords] = useState('');
   useEffect(() => {
-    if (words) {
-      setSubmitWords(words);
-    }
-    communicateWithServiceWorker();
+    receiver
+      .listen(PageReadyMessage)
+      .listen(LookWordsUpMessage, (message) => {
+        const payload = message.getPayload();
+        lookWordsUp(payload);
+      })
+      .start();
   }, []);
-  
-  const {
-    data,
-    isLoading,
-    isError,
-    isSuccess,
-    error
-  } = useQuery({
-    queryKey: ['words', submitWords],
-    queryFn: () => lookWordsUp(submitWords)
-  });
+  function lookWordsUp (words) {
+    setText(words);
+    setWords(words);
+  }
   return (
     <Style.App id='app'>
       <Header
-        text={words}
-        onChange={setWords}
-        onSubmit={setSubmitWords}
+        text={text}
+        onChange={setText}
+        onSubmit={() => setWords(text)}
       />
-      <Body
-        isLoading={isLoading}
-        result={data}
-        error={error}
-        onClickOtherText={(text) => {
-          setWords(text);
-          setSubmitWords(text);
-        }}
-      />
+      <QueryClientProvider client={queryClient}>
+        <Body
+          words={words}
+          onClickOtherText={lookWordsUp}
+        />
+      </QueryClientProvider>
       <Footer />
     </Style.App>
   );

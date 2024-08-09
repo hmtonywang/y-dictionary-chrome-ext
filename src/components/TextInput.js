@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import CloseBtn from './CloseBtn';
@@ -27,7 +26,7 @@ const TextInput = (props) => {
         onChange={(event) => props.onChange(event.target.value)}
         onKeyDown={(event) => {
           if (props.value && event.key === 'Enter') {
-            props.onSubmit(event.target.value);
+            props.onSubmit();
           }
         }}
       />

@@ -1,16 +1,31 @@
 import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
 import styled from 'styled-components';
+import { lookWordsUp } from '../api/words';
 import Result from './Result';
 import Spinner from './Spinner';
 
+const useLookWordsUp = (words) => {
+  return useQuery({
+    queryKey: ['words', words],
+    queryFn: () => lookWordsUp(words)
+  });
+};
+
 const Body = (props) => {
+  const { words } = props;
+  const {
+    data,
+    isLoading,
+    error
+  } = useLookWordsUp(words);
   return (
     <Style.Body>
-      {props.isLoading
+      {isLoading
         ? <Spinner />
         : <Result
-            value={props.result}
-            error={props.error}
+            value={data}
+            error={error}
             onClickOtherText={props.onClickOtherText}
           />
       }
@@ -19,7 +34,7 @@ const Body = (props) => {
 };
 
 Body.propTypes = {
-  loading: PropTypes.bool.isRequired,
+  words: PropTypes.string,
   onClickOtherText: PropTypes.func.isRequired,
 };
 

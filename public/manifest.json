@@ -1,5 +1,6 @@
 {
   "manifest_version": 3,
+  "id": "y-dictionary",
   "name": "Y Dictionary",
   "description" : "瀏覽網頁時可輕鬆查閱單字及片語。",
   "version": "1.0.2",
