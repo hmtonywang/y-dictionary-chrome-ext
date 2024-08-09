@@ -99,6 +99,10 @@ const PhoneticRow = (props) => {
 };
 
 OtherBlock.propTypes = {
+  value: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    rows: PropTypes.array,
+  }).isRequired,
   onClickOtherText: PropTypes.func.isRequired,
 };
 

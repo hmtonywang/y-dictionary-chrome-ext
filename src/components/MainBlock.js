@@ -40,7 +40,11 @@ const MainBlock = (props) => {
 };
 
 MainBlock.propTypes = {
-  value: PropTypes.func.isRequired,
+  value: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    phonetic: PropTypes.array,
+    explanations: PropTypes.array,
+  }).isRequired,
   notes: PropTypes.array,
 };
 
