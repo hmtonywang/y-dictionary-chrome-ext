@@ -9,7 +9,7 @@ describe('Test page', () => {
   beforeAll(async () => {
     browser = await puppeteer.launch({
       executablePath: process.env.PUPPETEER_EXEC_PATH,
-      headless: false,
+      headless: 'new',
       args: [
         `--no-sandbox`,
         `--disable-extensions-except=${EXTENSION_PATH}`,
