@@ -1,0 +1,48 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: node:18-alpine
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v3
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+    - name: Run test
+      run: yarn test
+
+  security:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v3
+    - name: Run Trivy vulnerability scanner in repo mode
+      uses: aquasecurity/trivy-action@0.20.0
+      with:
+        scan-type: 'fs'
+        ignore-unfixed: true
+        format: 'sarif'
+        output: 'security-trivy-results.sarif'
+        severity: 'MEDIUM,HIGH,CRITICAL'
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: 'security-trivy-results.sarif'
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v3
+    - name: Run build
+      run: yarn build
+    - name: Zip the build directory
+      uses: montudor/action-zip@v1
+      with:
+          args: zip -qq -r dictionary-chrome-ext.${{ github.sha }}.zip build
+
+
