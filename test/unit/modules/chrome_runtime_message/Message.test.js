@@ -1,4 +1,4 @@
-import Message from '../../../src/modules/chrome_runtime_message/Message';
+import Message from '../../../../src/modules/chrome_runtime_message/Message';
 
 describe('Test Message', () => {
   test('should create an instance with a random id', () => {

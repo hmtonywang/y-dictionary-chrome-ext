@@ -1,5 +1,5 @@
-import Message from '../../../src/modules/chrome_runtime_message/Message';
-import MessageReceiver from '../../../src/modules/chrome_runtime_message/MessageReceiver';
+import Message from '../../../../src/modules/chrome_runtime_message/Message';
+import MessageReceiver from '../../../../src/modules/chrome_runtime_message/MessageReceiver';
 
 describe('Test MessageReceiver', () => {
   test('should throw an error if no parameter is passed when creating an instance', () => {

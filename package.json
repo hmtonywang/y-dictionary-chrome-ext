@@ -26,6 +26,8 @@
     "start": "react-scripts start",
     "build": "INLINE_RUNTIME_CHUNK=false craco build",
     "test": "jest .",
+    "test:unit": "jest ./test/unit",
+    "test:e2e": "jest ./test/e2e",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
