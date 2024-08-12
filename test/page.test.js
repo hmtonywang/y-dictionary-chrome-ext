@@ -8,13 +8,15 @@ describe('Test page', () => {
 
   beforeAll(async () => {
     browser = await puppeteer.launch({
-      headless: true,
+      executablePath: process.env.PUPPETEER_EXEC_PATH,
+      headless: false,
       args: [
+        `--no-sandbox`,
         `--disable-extensions-except=${EXTENSION_PATH}`,
         `--load-extension=${EXTENSION_PATH}`
       ]
     });
-  });
+  }, 20000);
   
   afterAll(async () => {
     page = undefined;
