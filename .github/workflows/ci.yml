@@ -24,16 +24,24 @@ jobs:
   test:
     needs: security
     runs-on: ubuntu-latest
-    container: node:18-alpine
+    env:
+      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
+      CI: 'true'
     steps:
     - name: Check out repository code
       uses: actions/checkout@v3
+    - name: Install node 
+      uses: actions/setup-node@v2-beta
+      with:
+        node-version: 18.x
     - name: Install dependencies
       run: yarn install --frozen-lockfile
     - name: Run build
       run: yarn build
     - name: Run test
-      run: yarn test
+      uses: djp3/puppeteer-headful@master
+      with:
+        args: yarn test
 
   build:
     needs: test
